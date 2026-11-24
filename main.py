@@ -11,9 +11,14 @@ WORD = "Ghosting"
 
 
 def main():
+    word = WORD.strip()
+    assert 1 <= len(word.encode("utf-8")) <= 20, "word must be 1-20 UTF-8 chars"
+    assert len(word.split()) == 1, "word must be a single word"
     os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(WORD)
+    tmp = "/output/.entry.txt.tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        f.write(word)
+    os.replace(tmp, "/output/entry.txt")
 
 
 if __name__ == "__main__":
